@@ -1,0 +1,164 @@
+from tkinter import *
+import RPi.GPIO as gpio
+import time
+from gpiozero import LED
+
+led = LED(16)
+
+
+
+root = Tk() # To create the main window, Tkinter offers a method, ‘Tk’. To change the name of the window, you can change the className to the desired one
+
+root.title("Morse Code") 
+root.geometry("250x200")
+root.eval('tk::PlaceWindow . center')
+Label(root, text="Please Enter The Name", font="lucida 11 bold", justify=LEFT, padx=14).grid(row=0, column=1)
+
+def morsecode(code):
+    for letter in code:
+        if letter == 'a' or 'A':
+            _DOT()
+            _DASH()
+            
+        elif  letter == 'b' or 'B':
+            _DASH()
+            _DOT()
+            _DOT()
+            _DOT()
+        elif letter == 'c' or 'C':
+            _DASH()
+            _DOT()
+            _DASH()
+            _DOT()
+    
+        elif letter == 'd' or 'D':
+            _DASH()
+            _DOT()
+            _DOT() 
+
+        elif letter  == 'e' or 'E':
+            _DOT()
+        elif letter == 'f' or 'F':
+            _DOT()
+            _DOT()
+            _DASH()
+            _DOT()
+        elif letter == 'g' or 'G':
+            _DASH()
+            _DASH()
+            _DOT()
+        elif lettter == 'h' or 'H':
+             _DOT()
+             _DOT()
+             _DOT()
+             _DOT()
+        elif letter == 'i' or 'I':
+              _DOT()
+              _DOT()
+        elif letter == 'j' or 'J':
+              _DOT()
+              _DASH()
+              _DASH()
+              _DASH()
+        elif letter == 'k' or 'K':
+             _DASH()
+             _DOT()
+             _DASH()
+        elif letter == 'l' or 'L':
+             _DOT()
+             _DASH()
+             _DOT()
+             _DOT()
+        elif letter == 'm' or 'M':
+              _DASH()
+              _DASH()
+        elif letter == 'n' or 'N':
+              _DASH()
+              _DOT()
+        elif letter == 'o' or 'O':
+               _DASH()
+               _DASH()
+               _DASH()
+        elif letter == 'p' or 'P':
+               _DOT()
+               _DASH()
+               _DASH()
+               _DOT()
+        elif letter == 'q' or 'Q':
+               _DASH()
+               _DASH()
+               _DOT()
+               _DASH()
+        elif letter == 'r' or 'R':
+               _DOT()
+               _DASH()
+               _DOT()
+        elif letter == 's' or 'S':
+               _DOT()
+               _DOT()
+               _DOT()
+        elif letter == 't' or 'T':
+               _DASH()
+        elif letter == 'u' or 'u':
+               _DOT()
+               _DOT()
+               _DASH()
+        elif letter == 'v' or 'V':
+               _DOT()
+               _DOT()
+               _DOT()
+               _DASH()
+        elif letter == 'w' or 'W':
+               _DOT()
+               _DASH()
+               _DASH()
+        elif letter == 'x' or 'X':
+               _DASH()
+               _DOT()
+               _DOT()
+               _DASH() 
+        elif letter == 'y' or 'Y':
+             _DASH()
+             _DOT()
+             _DASH()
+             _DASH()
+        elif letter == 'z' or 'Z':
+            _DASH()
+            _DASH()
+            _DOT()
+            _DOT()        
+            
+name = StringVar()
+
+def _DOT():
+   led.on()
+   time.sleep(0.2)
+   led.off()
+   time.sleep(0.2)
+
+    
+def _DASH():
+   led.on()
+   time.sleep(0.6)
+   led.off()
+   time.sleep(0.2)
+    
+def code():
+   tester = list(name.get())
+   print(tester)
+   morsecode(tester)
+
+Box = Entry(root, width=15, textvariable = name)
+Box.grid(row=1, column=1, padx=16, pady=12)
+button = Button(root, text="SUBMIT" , bg="orange" , height=1, width=20, command = code)
+button.grid(row=2, column=1, padx=12, pady=6)
+
+exitButton = Button(root, text="Exit", bg="red" ,command=root.destroy, height=1, width=15).grid(row=3, column=1)
+
+ 
+
+root.mainloop()
+
+
+
+
