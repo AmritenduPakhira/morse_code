@@ -73,17 +73,17 @@ def builder():                        # making function that translates alphabat
             MyWord += ' '       
     return MyWord       
 def close():
-    window.destroy()       
+    root.destroy()       
 
-window.geometry("300x175")
+root.geometry("300x175")
 
-label1 = Label(text="Enter Your Name to Blink:")
-label1.pack(pady=10)
-text1 = Entry()
-text1.pack(pady=10)
+Box = Entry(root, width=15, textvariable = name)
+Box.grid(row=1, column=1, padx=16, pady=12)
+button = Button(root, text="SUBMIT" , bg="orange" , height=1, width=20, command = code)
+button.grid(row=2, column=1, padx=12, pady=6)
 
-submit = Button(text="SUBMIT" ,command=builder) 
-submit.pack(pady=3)
-exit = Button(text="EXIT", command = close)
-exit.pack()
-window.mainloop()
+exitButton = Button(root, text="Exit", bg="red" ,command=root.destroy, height=1, width=15).grid(row=3, column=1)
+
+ 
+
+root.mainloop()
