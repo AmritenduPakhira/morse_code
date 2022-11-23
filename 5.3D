@@ -1,164 +1,89 @@
-from tkinter import *
-import RPi.GPIO as gpio
-import time
-from gpiozero import LED
-
+from time import sleep   # sleep is using for putting basic delay in our code
+from tkinter import *    # tkinter is a library to make and see GUI
+window = Tk()            # initialising gui named window
+from gpiozero import LED # gpiozero used for initialising of led
+import RPi.GPIO          #importing Genral input/output pin
 led = LED(16)
+MORSE_CODE_DICT = {         # morse code dictionary
+    'A':'.-',
+    'B':'-...',
+    'C':'-.-.',
+    'D':'-..',
+    'E':'.',
+    'F':'..-.',
+    'G':'--.',
+    'H':'....',
+    'I':'..',
+    'J':'.---',
+    'K':'-.-',
+    'L':'.-..',
+    'M':'--',
+    'N':'-.',
+    'O':'---',
+    'P':'.--.',
+    'Q':'--.-',
+    'R':'.-.',
+    'S':'...',
+    'T':'-',
+    'U':'..-',
+    'V':'...-',
+    'W':'.--',
+    'X':'-..-',
+    'Y':'-.--',
+    'Z':'--..',
+    '1':'.----',
+    '2':'..---',
+    '3':'...--',
+    '4':'....-',
+    '5':'.....',
+    '6':'-....',
+    '7':'--...',
+    '8':'---..',
+    '9':'----.',
+    '0':'-----',
+}
 
+def builder():                        # making function that translates alphabates in to morse and join them as word
+    print(text1.get())              #it will print the text that should be converted in to morse
+    name = (text1.get()).upper()        #it will convert lowercase to uppercase
+    arr = list(name)                #it will store all the characters into array/list
+    MyWord = ''
+    for letter in arr:             #this for-loop will convert letters to morse and join them as word
+        if letter != ' ':         # if letter was not space then 
+            MyWord = MORSE_CODE_DICT[letter] + ' ' #it will build the morse code
+            var = list(MyWord)      
+            print(MyWord)         #and print them
+            for var1 in var:          # for number or letters in morse code and 
+                if(var1 == "-"):    # if sign is '-' then it will blink for 0.3 Second
+                    led.on()
+                    sleep(0.3)
+                    led.off()
+                    sleep(0.3)
+                elif(var1 == "."):  # if sign is '.' then it will blink for 0.1 Second
+                    led.on()
+                    sleep(0.1)
+                    led.off()
+                    sleep(0.1)
+                elif(var1 == " "): # if sign is ' ' then it will blink for 0.2 Second
+                    led.on()
+                    sleep(0.2)
+                    led.off()
+                    sleep(0.2)
+        else:
+            MyWord += ' '       
+    return MyWord       
+def close():
+    window.destroy()       
 
+window.geometry("300x175")
 
-root = Tk() # To create the main window, Tkinter offers a method, ‘Tk’. To change the name of the window, you can change the className to the desired one
+label1 = Label(text="Enter Your Name to Blink:")
+label1.pack(pady=10)
+text1 = Entry()
+text1.pack(pady=10)
 
-root.title("Morse Code") 
-root.geometry("250x200")
-root.eval('tk::PlaceWindow . center')
-Label(root, text="Please Enter The Name", font="lucida 11 bold", justify=LEFT, padx=14).grid(row=0, column=1)
-
-def morsecode(code):
-    for letter in code:
-        if letter == 'a' or 'A':
-            _DOT()
-            _DASH()
-            
-        elif  letter == 'b' or 'B':
-            _DASH()
-            _DOT()
-            _DOT()
-            _DOT()
-        elif letter == 'c' or 'C':
-            _DASH()
-            _DOT()
-            _DASH()
-            _DOT()
-    
-        elif letter == 'd' or 'D':
-            _DASH()
-            _DOT()
-            _DOT() 
-
-        elif letter  == 'e' or 'E':
-            _DOT()
-        elif letter == 'f' or 'F':
-            _DOT()
-            _DOT()
-            _DASH()
-            _DOT()
-        elif letter == 'g' or 'G':
-            _DASH()
-            _DASH()
-            _DOT()
-        elif lettter == 'h' or 'H':
-             _DOT()
-             _DOT()
-             _DOT()
-             _DOT()
-        elif letter == 'i' or 'I':
-              _DOT()
-              _DOT()
-        elif letter == 'j' or 'J':
-              _DOT()
-              _DASH()
-              _DASH()
-              _DASH()
-        elif letter == 'k' or 'K':
-             _DASH()
-             _DOT()
-             _DASH()
-        elif letter == 'l' or 'L':
-             _DOT()
-             _DASH()
-             _DOT()
-             _DOT()
-        elif letter == 'm' or 'M':
-              _DASH()
-              _DASH()
-        elif letter == 'n' or 'N':
-              _DASH()
-              _DOT()
-        elif letter == 'o' or 'O':
-               _DASH()
-               _DASH()
-               _DASH()
-        elif letter == 'p' or 'P':
-               _DOT()
-               _DASH()
-               _DASH()
-               _DOT()
-        elif letter == 'q' or 'Q':
-               _DASH()
-               _DASH()
-               _DOT()
-               _DASH()
-        elif letter == 'r' or 'R':
-               _DOT()
-               _DASH()
-               _DOT()
-        elif letter == 's' or 'S':
-               _DOT()
-               _DOT()
-               _DOT()
-        elif letter == 't' or 'T':
-               _DASH()
-        elif letter == 'u' or 'u':
-               _DOT()
-               _DOT()
-               _DASH()
-        elif letter == 'v' or 'V':
-               _DOT()
-               _DOT()
-               _DOT()
-               _DASH()
-        elif letter == 'w' or 'W':
-               _DOT()
-               _DASH()
-               _DASH()
-        elif letter == 'x' or 'X':
-               _DASH()
-               _DOT()
-               _DOT()
-               _DASH() 
-        elif letter == 'y' or 'Y':
-             _DASH()
-             _DOT()
-             _DASH()
-             _DASH()
-        elif letter == 'z' or 'Z':
-            _DASH()
-            _DASH()
-            _DOT()
-            _DOT()        
-            
-name = StringVar()
-
-def _DOT():
-   led.on()
-   time.sleep(0.2)
-   led.off()
-   time.sleep(0.2)
-
-    
-def _DASH():
-   led.on()
-   time.sleep(0.6)
-   led.off()
-   time.sleep(0.2)
-    
-def code():
-   tester = list(name.get())
-   print(tester)
-   morsecode(tester)
-
-Box = Entry(root, width=15, textvariable = name)
-Box.grid(row=1, column=1, padx=16, pady=12)
-button = Button(root, text="SUBMIT" , bg="orange" , height=1, width=20, command = code)
-button.grid(row=2, column=1, padx=12, pady=6)
-
-exitButton = Button(root, text="Exit", bg="red" ,command=root.destroy, height=1, width=15).grid(row=3, column=1)
-
- 
-
-root.mainloop()
-
-
-
-
+submit = Button(text="SUBMIT" ,command=builder) 
+submit.pack(pady=3)
+exit = Button(text="EXIT", command = close)
+exit.pack()
+window.mainloop()
