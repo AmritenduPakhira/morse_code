@@ -4,7 +4,7 @@ window = Tk()            # initialising gui named window
 from gpiozero import LED # gpiozero used for initialising of led
 import RPi.GPIO          #importing Genral input/output pin
 led = LED(16)
-Max_length=12;
+Max_length=12
 MORSE_CODE_DICT = {         # morse code dictionary
     'A':'.-',
     'B':'-...',
