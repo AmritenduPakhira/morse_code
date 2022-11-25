@@ -4,6 +4,7 @@ window = Tk()            # initialising gui named window
 from gpiozero import LED # gpiozero used for initialising of led
 import RPi.GPIO          #importing Genral input/output pin
 led = LED(16)
+Max_length=12;
 MORSE_CODE_DICT = {         # morse code dictionary
     'A':'.-',
     'B':'-...',
@@ -46,8 +47,12 @@ MORSE_CODE_DICT = {         # morse code dictionary
 def builder():                        # making function that translates alphabates in to morse and join them as word
     print(text1.get())              #it will print the text that should be converted in to morse
     name = (text1.get()).upper()        #it will convert lowercase to uppercase
+    if (name <=Max_length && name>0)
     arr = list(name)                #it will store all the characters into array/list
     MyWord = ''
+    print(Myword)
+    else 
+    print("please netre valid number")
     for letter in arr:             #this for-loop will convert letters to morse and join them as word
         if letter != ' ':         # if letter was not space then 
             MyWord = MORSE_CODE_DICT[letter] + ' ' #it will build the morse code
